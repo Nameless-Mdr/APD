@@ -1,4 +1,5 @@
 using APD.DAL;
+using APD.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 class Program
@@ -17,6 +18,8 @@ class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"), sql => { });
         });
+        
+        builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
         #region Registry services
         new ServiceDal().Registry(builder.Services);
