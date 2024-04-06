@@ -93,6 +93,11 @@ namespace APD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
+                    b.Property<string>("TypeConnect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeConnect");
+
                     b.HasKey("Id");
 
                     b.ToTable("PrintDevice", "main");
@@ -112,7 +117,13 @@ namespace APD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int")
+                        .HasColumnName("OfficeId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OfficeId");
 
                     b.ToTable("User", "main");
                 });
@@ -134,6 +145,17 @@ namespace APD.Migrations
                     b.Navigation("Office");
 
                     b.Navigation("PrintDevice");
+                });
+
+            modelBuilder.Entity("APD.Domain.Entity.User", b =>
+                {
+                    b.HasOne("APD.Domain.Entity.Office", "Office")
+                        .WithMany()
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Office");
                 });
 #pragma warning restore 612, 618
         }

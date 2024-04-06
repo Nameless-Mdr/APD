@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using APD.Domain.Enum;
 
 namespace APD.Domain.Entity;
 
@@ -14,5 +13,5 @@ public class PrintDevice
     public string Name { get; set; } = null!;
 
     [Column("TypeConnect")]
-    public TypeConnect TypeConnect;
+    public string TypeConnect { get; set; } = null!;
 }
