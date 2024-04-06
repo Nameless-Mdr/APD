@@ -34,7 +34,8 @@ namespace APD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeConnect = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,11 +49,19 @@ namespace APD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OfficeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Office_OfficeId",
+                        column: x => x.OfficeId,
+                        principalSchema: "main",
+                        principalTable: "Office",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,6 +107,12 @@ namespace APD.Migrations
                 schema: "main",
                 table: "Installation",
                 column: "PrintDeviceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_OfficeId",
+                schema: "main",
+                table: "User",
+                column: "OfficeId");
         }
 
         /// <inheritdoc />
@@ -112,11 +127,11 @@ namespace APD.Migrations
                 schema: "main");
 
             migrationBuilder.DropTable(
-                name: "Office",
+                name: "PrintDevice",
                 schema: "main");
 
             migrationBuilder.DropTable(
-                name: "PrintDevice",
+                name: "Office",
                 schema: "main");
         }
     }
