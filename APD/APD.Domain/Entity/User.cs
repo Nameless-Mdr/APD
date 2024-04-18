@@ -2,7 +2,7 @@
 
 namespace APD.Domain.Entity;
 
-[Table("users", Schema = "main")]
+[Table("User", Schema = "main")]
 public class User
 {
     [Column("Id")]

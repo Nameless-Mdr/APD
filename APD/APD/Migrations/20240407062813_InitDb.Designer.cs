@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APD.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240406172520_InitDb")]
+    [Migration("20240407062813_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -96,14 +96,34 @@ namespace APD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("TypeConnect")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeConnect");
+                    b.Property<int>("TypeConnectId")
+                        .HasColumnType("int")
+                        .HasColumnName("TypeConnectId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TypeConnectId");
+
                     b.ToTable("PrintDevice", "main");
+                });
+
+            modelBuilder.Entity("APD.Domain.Entity.TypeConnect", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeConnect", "main");
                 });
 
             modelBuilder.Entity("APD.Domain.Entity.User", b =>
@@ -148,6 +168,17 @@ namespace APD.Migrations
                     b.Navigation("Office");
 
                     b.Navigation("PrintDevice");
+                });
+
+            modelBuilder.Entity("APD.Domain.Entity.PrintDevice", b =>
+                {
+                    b.HasOne("APD.Domain.Entity.TypeConnect", "TypeConnect")
+                        .WithMany()
+                        .HasForeignKey("TypeConnectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TypeConnect");
                 });
 
             modelBuilder.Entity("APD.Domain.Entity.User", b =>

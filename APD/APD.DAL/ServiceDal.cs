@@ -10,5 +10,8 @@ public class ServiceDal : IModule
     public void Registry(IServiceCollection services)
     {
         services.AddTransient<IOfficeRepo, OfficeRepo>();
+        services.AddTransient<IUserRepo, UserRepo>();
+        services.AddTransient<IInstallationRepo, InstallationRepo>();
+        services.AddTransient<IPrintDeviceRepo, PrintDeviceRepo>();
     }
 }
