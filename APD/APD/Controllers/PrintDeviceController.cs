@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APD.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class PrintDeviceController : Controller
 {
@@ -20,6 +20,19 @@ public class PrintDeviceController : Controller
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Метод получения списка устройств печати
+    /// </summary>
+    /// <remarks>
+    /// Пример запроса:
+    ///
+    ///     GET /api/PrintDevice/GetPagePrintDevice?TypeConnectId=1&amp;Page=1&amp;PageSize=1
+    /// 
+    /// </remarks>
+    /// <param name="mdl">Модель для пагинации и фильтрации</param>
+    /// <returns>Данные полученных устройств печати в формате JSON</returns>
+    /// <response code="200">Успешное выполнение</response>
+    /// <response code="400">Ошибка API</response>
     [HttpGet("GetPagePrintDevice")]
     public async Task<IActionResult> GetPagePrintDevice([FromQuery] FilterPrintDevice mdl)
     {

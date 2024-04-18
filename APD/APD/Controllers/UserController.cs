@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APD.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class UserController : Controller
 {
@@ -19,7 +19,19 @@ public class UserController : Controller
         _mapper = mapper;
     }
     
-    [HttpGet]
+    /// <summary>
+    /// Метод получения списка пользователей
+    /// </summary>
+    /// <remarks>
+    /// Пример запроса:
+    ///
+    ///     GET /api/User/GetPageOffice
+    /// 
+    /// </remarks>
+    /// <returns>Данные полученных пользователей в формате JSON</returns>
+    /// <response code="200">Успешное выполнение</response>
+    /// <response code="400">Ошибка API</response>
+    [HttpGet("GetPageOffice")]
     public async Task<IActionResult> GetPageOffice()
     {
         try
