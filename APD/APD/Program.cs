@@ -1,3 +1,4 @@
+using System.Reflection;
 using APD.DAL;
 using APD.Mapper;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,18 @@ class Program
         
         builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         
+        builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(swagger =>
+        {
+            swagger.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "APD Swagger" });
+            swagger.ResolveConflictingActions(
+                apiDesc => { return apiDesc.First(); });
+        
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            swagger.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        });
         
         builder.Services.AddDbContext<DataContext>(options =>
         {
@@ -39,7 +49,11 @@ class Program
         }
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwagger()
+            .UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            });
 
         app.UseHttpsRedirection();
 

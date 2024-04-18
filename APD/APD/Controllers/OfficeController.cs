@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APD.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class OfficeController : Controller
 {
@@ -19,7 +19,19 @@ public class OfficeController : Controller
         _officeRepo = officeRepo;
         _mapper = mapper;
     }
-
+    
+    /// <summary>
+    /// Метод получения списка филиалов
+    /// </summary>
+    /// <remarks>
+    /// Пример запроса:
+    ///
+    ///     GET /api/Office/GetPageOffice
+    /// 
+    /// </remarks>
+    /// <returns>Данные полученных филалов в формате JSON</returns>
+    /// <response code="200">Успешное выполнение</response>
+    /// <response code="400">Ошибка API</response>
     [HttpGet("GetPageOffice")]
     public async Task<IActionResult> GetPageOffice()
     {
