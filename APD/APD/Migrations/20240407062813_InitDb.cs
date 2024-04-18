@@ -28,18 +28,17 @@ namespace APD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrintDevice",
+                name: "TypeConnect",
                 schema: "main",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeConnect = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PrintDevice", x => x.Id);
+                    table.PrimaryKey("PK_TypeConnect", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,6 +59,28 @@ namespace APD.Migrations
                         column: x => x.OfficeId,
                         principalSchema: "main",
                         principalTable: "Office",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PrintDevice",
+                schema: "main",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeConnectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrintDevice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PrintDevice_TypeConnect_TypeConnectId",
+                        column: x => x.TypeConnectId,
+                        principalSchema: "main",
+                        principalTable: "TypeConnect",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -109,6 +130,12 @@ namespace APD.Migrations
                 column: "PrintDeviceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PrintDevice_TypeConnectId",
+                schema: "main",
+                table: "PrintDevice",
+                column: "TypeConnectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_OfficeId",
                 schema: "main",
                 table: "User",
@@ -132,6 +159,10 @@ namespace APD.Migrations
 
             migrationBuilder.DropTable(
                 name: "Office",
+                schema: "main");
+
+            migrationBuilder.DropTable(
+                name: "TypeConnect",
                 schema: "main");
         }
     }

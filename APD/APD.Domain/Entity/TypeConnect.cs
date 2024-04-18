@@ -2,8 +2,8 @@
 
 namespace APD.Domain.Entity;
 
-[Table("PrintDevice", Schema = "main")]
-public class PrintDevice
+[Table("TypeConnect", Schema = "main")]
+public class TypeConnect
 {
     [Column("Id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -11,10 +11,4 @@ public class PrintDevice
 
     [Column("Name")]
     public string Name { get; set; } = null!;
-
-    [Column("TypeConnectId")]
-    public int TypeConnectId { get; set; }
-
-    [ForeignKey($"{nameof(TypeConnectId)}")]
-    public virtual TypeConnect TypeConnect { get; set; } = null!;
 }
