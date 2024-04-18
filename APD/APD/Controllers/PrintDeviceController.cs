@@ -9,7 +9,7 @@ namespace APD.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class PrintDeviceController : ControllerBase
+public class PrintDeviceController : Controller
 {
     private readonly IPrintDeviceRepo _printDevice;
     private readonly IMapper _mapper;
@@ -20,11 +20,18 @@ public class PrintDeviceController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<GetPrintDeviceModel>> GetPagePrintDevice([FromQuery] FilterPrintDevice mdl)
+    [HttpGet("GetPagePrintDevice")]
+    public async Task<IActionResult> GetPagePrintDevice([FromQuery] FilterPrintDevice mdl)
     {
-        var printDevices = await _printDevice.GetPrintDevices(mdl);
+        try
+        {
+            var printDevices = await _printDevice.GetPrintDevices(mdl);
 
-        return _mapper.MapEnumerable<GetPrintDeviceModel>(printDevices);
+            return Json(_mapper.MapEnumerable<GetPrintDeviceModel>(printDevices));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }

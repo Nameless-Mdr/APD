@@ -9,7 +9,7 @@ namespace APD.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class OfficeController : ControllerBase
+public class OfficeController : Controller
 {
     private readonly IOfficeRepo _officeRepo;
     private readonly IMapper _mapper;
@@ -20,11 +20,18 @@ public class OfficeController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<GetOfficeModel>> GetPageOffice()
+    [HttpGet("GetPageOffice")]
+    public async Task<IActionResult> GetPageOffice()
     {
-        var offices = await _officeRepo.GetAllModels();
+        try
+        {
+            var offices = await _officeRepo.GetAllModels();
         
-        return _mapper.MapEnumerable<GetOfficeModel>(offices);
+            return Json(_mapper.MapEnumerable<GetOfficeModel>(offices));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }
