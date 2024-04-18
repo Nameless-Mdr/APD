@@ -8,7 +8,7 @@ namespace APD.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class UserController : ControllerBase
+public class UserController : Controller
 {
     private readonly IUserRepo _userRepo;
     private readonly IMapper _mapper;
@@ -20,10 +20,17 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IEnumerable<GetUserModel>> GetPageOffice()
+    public async Task<IActionResult> GetPageOffice()
     {
-        var users = await _userRepo.GetAllModels();
+        try
+        {
+            var users = await _userRepo.GetAllModels();
         
-        return _mapper.MapEnumerable<GetUserModel>(users);
+            return Json(_mapper.MapEnumerable<GetUserModel>(users));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }

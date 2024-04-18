@@ -1,6 +1,4 @@
-﻿using APD.Domain.Entity;
-
-namespace APD.Models.DTO.Installation;
+﻿namespace APD.Models.DTO.Installation;
 
 public class GetInstallationModel
 {
@@ -8,5 +6,13 @@ public class GetInstallationModel
     
     public string Name { get; set; }
     
-    public string TypeConnectName { get; set; }
+    public string OfficeName { get; set; }
+    
+    public int SequenceNumber { get; set; }
+    
+    public string Default { get; set; }
+    
+    public string PrintDeviceName { get; set; }
+    
+    public int OfficeId { get; set; }
 }

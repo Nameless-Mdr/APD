@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APD.DAL", "APD.DAL\APD.DAL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APD.Common", "APD.Common\APD.Common.csproj", "{B31CAB16-A289-4854-9CA1-9336E8BAF16F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADP.Constants", "ADP.Constants\ADP.Constants.csproj", "{C30A2E52-1FB9-4FFF-8DFF-581317416067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B31CAB16-A289-4854-9CA1-9336E8BAF16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B31CAB16-A289-4854-9CA1-9336E8BAF16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31CAB16-A289-4854-9CA1-9336E8BAF16F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30A2E52-1FB9-4FFF-8DFF-581317416067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30A2E52-1FB9-4FFF-8DFF-581317416067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30A2E52-1FB9-4FFF-8DFF-581317416067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30A2E52-1FB9-4FFF-8DFF-581317416067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

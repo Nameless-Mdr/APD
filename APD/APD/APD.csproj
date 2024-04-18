@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ADP.Constants\ADP.Constants.csproj" />
       <ProjectReference Include="..\APD.Common\APD.Common.csproj" />
       <ProjectReference Include="..\APD.DAL\APD.DAL.csproj" />
     </ItemGroup>

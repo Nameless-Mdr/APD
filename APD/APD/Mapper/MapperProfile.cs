@@ -1,4 +1,5 @@
-﻿using APD.Domain.Entity;
+﻿using ADP.Constants;
+using APD.Domain.Entity;
 using APD.Models.DTO.Installation;
 using APD.Models.DTO.Office;
 using APD.Models.DTO.PrintDevice;
@@ -23,8 +24,16 @@ public class MapperProfile : Profile
 
         #region Mapping Installation
         CreateMap<Installation, GetInstallationModel>()
-            .ForMember(d => d.TypeConnectName, m
-                => m.MapFrom(s => s.PrintDevice.Name));
+            .ForMember(d => d.PrintDeviceName, m
+                => m.MapFrom(s => s.PrintDevice.Name))
+            .ForMember(d => d.Default, m 
+                => m.MapFrom(s => s.IsDefault ? InstallationConstants.DefaultYes : InstallationConstants.DefaultNo))
+            .ForMember(d => d.OfficeName, m 
+                => m.MapFrom(s => s.Office.Name));
+
+        CreateMap<CreateInstallationModel, Installation>()
+            .ForMember(d => d.IsDefault, m 
+                => m.MapFrom(s => s.Default == InstallationConstants.DefaultYes));
         #endregion
 
         #region MappingPrintDevice
